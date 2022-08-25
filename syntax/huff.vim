@@ -27,11 +27,17 @@ hi def link huffNumberHex Number
 
 syn match huffDefine '#define' contained
 syn keyword huffMacro macro contained
+syn keyword huffFn fn contained
+syn keyword huffJumptable jumptable contained
+syn keyword huffJumptablePacked jumptable__packed contained
 syn keyword huffConstant constant contained
 syn keyword huffTakes takes contained
 syn keyword huffReturns returns contained
 hi def link huffDefine Define
 hi def link huffMacro Keyword
+hi def link huffFn Keyword
+hi def link huffJumptable Keyword
+hi def link huffJumptablePacked Keyword
 hi def link huffConstant Keyword
 hi def link huffTakes Keyword
 hi def link huffReturns Keyword
@@ -40,6 +46,12 @@ syn match huffIdentifier "\v\i" contained
 hi def link huffIdentifier Identifier
 
 syn match huffDeclMacro "\v#define\s+macro\s+\i+\s*\((\i+(,\s*\i+)*)?\)\s*\=\s*takes\s*\(\d+\)\s*returns\s*\(\d+\)" transparent contains=huffDefine,huffMacro,huffIdentifier,huffTakes,huffReturns
+
+syn match huffDeclFn "\v#define\s+fn\s+\i+\s*\((\i+(,\s*\i+)*)?\)\s*\=\s*takes\s*\(\d+\)\s*returns\s*\(\d+\)" transparent contains=huffDefine,huffFn,huffIdentifier,huffTakes,huffReturns
+
+syn match huffDeclJumptable "\v#define\s+jumptable\s+\i+>" transparent contains=huffDefine,huffJumtable,huffIdentifier
+
+syn match huffDeclJumptable "\v#define\s+jumptable__packed\s+\i+>" transparent contains=huffDefine,huffJumtablePacked,huffIdentifier
 
 syn match huffConstantDef "\v#define\s+constant\s+[A-Za-z_]\w*" transparent contains=huffDefine,huffConstant,huffIdentifier,huffTakes,huffReturns
 

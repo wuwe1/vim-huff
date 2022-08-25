@@ -2,11 +2,6 @@ if exists("b:current_syntax")
   finish
 endif
 
-syn match huffNumberDecimal "\v<\d+(\.\d+)?>"
-syn match huffNumberHex "\v<0[xX][a-fA-F0-9]+>"
-hi def link huffNumberDecimal Number
-hi def link huffNumberHex Number
-
 syn match huffNatspecTag "\v\@title>" contained
 syn match huffNatspecTag "\v\@author>" contained
 syn match huffNatspecTag "\v\@notice>" contained
@@ -22,6 +17,33 @@ syn region huffComment start="//" end="$"
 syn region huffComment start="/\*" end="\*/"
 hi def link huffComment Comment
 
+syn match huffInclude "\v#include>"
+hi def link huffInclude Include
+
+syn match huffNumberDecimal "\v<\d+(\.\d+)?>"
+syn match huffNumberHex "\v<0[xX][a-fA-F0-9]+>"
+hi def link huffNumberDecimal Number
+hi def link huffNumberHex Number
+
+syn match huffDefine '#define' contained
+syn keyword huffMacro macro contained
+syn keyword huffConstant constant contained
+syn keyword huffTakes takes contained
+syn keyword huffReturns returns contained
+hi def link huffDefine Define
+hi def link huffMacro Keyword
+hi def link huffConstant Keyword
+hi def link huffTakes Keyword
+hi def link huffReturns Keyword
+
+syn match huffIdentifier "\v\i" contained
+hi def link huffIdentifier Identifier
+
+syn match huffDeclMacro "\v#define\s+macro\s+\i+\s*\((\i+(,\s*\i+)*)?\)\s*\=\s*takes\s*\(\d+\)\s*returns\s*\(\d+\)" transparent contains=huffDefine,huffMacro,huffIdentifier,huffTakes,huffReturns
+
+syn match huffConstantDef "\v#define\s+constant\s+[A-Za-z_]\w*" transparent contains=huffDefine,huffConstant,huffIdentifier,huffTakes,huffReturns
+
+
 syn keyword huffOpcodesIO sstore sload mstore8 mstore mload pop msize balance address returndatacopy returndatasize extcodecopy extcodesize gasprice caller origin gaslimit difficulty number timestamp coinbase blockhash codecopy codesize calldatacopy calldatasize calldataload callvalue gas
 syn keyword huffOpcodesSideEffects log4 log3 log2 log1 log0 jumpdest getpc jumpi jump create2 staticcall delegatecall callcode call create
 syn keyword huffOpcodesCalculation not xor or and ror rol sar shr shl keccak sha3 byte iszero eq sgt slt gt lt signextend exp mulmod addmod smod mod sdiv div sub mul add
@@ -35,10 +57,5 @@ hi def link huffOpcodesCalculation Keyword
 hi def link huffOpcodesStop Keyword
 hi def link huffOpcodesStack Keyword
 
-syn match huffDefine '#define' contained
-syn keyword huffConstant constant contained
-syn match huffConstantDef "\v#define\s+constant\s+[A-Za-z_]\w*" transparent contains=huffDefine,huffConstant
-hi def link huffDefine Define
-hi def link huffConstant Keyword
 
 let b:current_syntax = "huff"

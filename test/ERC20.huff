@@ -3,10 +3,10 @@
 /// @notice An exemplary ERC20 token contract written in Huff.
 
 /* Imports */
-#include "./contracts/utils/Ownable.huff"
-#include "./contracts/utils/Address.huff"
-#include "./contracts/utils/Utils.huff"
-#include "./contracts/utils/HashMap.huff"
+#include "./utils/Ownable.huff"
+#include "./utils/Address.huff"
+#include "./utils/Utils.huff"
+#include "./utils/HashMap.huff"
 
 /* Interface */
 #define function mint(address,uint256) nonpayable returns ()

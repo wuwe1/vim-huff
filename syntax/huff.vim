@@ -84,4 +84,8 @@ hi def link huffOpcodesStack Keyword
 syn match huffTemplateCall "\v\<\s*\i+\s*\>" transparent contains=huffIdentifier
 syn match huffConstantRef "\v\[[A-Z_]+\]" transparent contains=huffIdentifier
 
+if get(g:, 'huff_fold_enable', 1)
+  syn region huffBlock start="{" end="}" transparent fold
+endif
+
 let b:current_syntax = "huff"

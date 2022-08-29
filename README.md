@@ -19,7 +19,7 @@ This plugin adds [Huff](https://docs.huff.sh) language support for Vim, with the
 - [x] Compile with `:HuffCompile`
 - [x] Syntax highlighting
 - [x] Lookup evm opcode with 'K'
-- [ ] Folding
+- [x] Folding
 - [ ] Debug huff program
 
 ## Install

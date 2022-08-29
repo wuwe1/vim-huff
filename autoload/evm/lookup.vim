@@ -9,13 +9,27 @@ fu! evm#lookup#Lookup(k)
       norm! ggdG
       setlocal filetype=evmlookup
       setlocal buftype=nofile
+      syn match evmLookupOpcode '\v^\[\zs0x[A-Fa-f0-9]+\ze\]' nextgroup=evmLookupName
+      syn match evmLookupName '\v\s+\zs\i+\ze\(' nextgroup=evmLookupInput
+      syn match evmLookupInput '\v\(\zs.*\ze\)$'
+      syn match evmlookupOutput '\v^\s+-\>\zs.*\ze$'
+      hi link evmLookupOpcode Number
+      hi link evmLookupName Define
+      hi link evmLookupInput Identifier
+      hi link evmLookupOutput Type
     else
-      exe l.winnr . 'wincmd w'
+      exe l:winnr . 'wincmd w'
       norm! ggdG
     endif
-    call append(line('$'), '[' . l:v.opcode . '] ' . a:k . '(' . l:v.input . ')')
-    call append(line('$'), '  -> ' . l:v.output)
-    call append(line('$'), l:v.desc)
+
+    let l:winw = winwidth('.')
+
+    call append(line('$') - 1, 
+          \ '[0x' . l:v.opcode . '] ' 
+          \ . a:k 
+          \ . '(' . l:v.input . ')')
+    call append(line('$') - 1, '  -> ' . l:v.output)
+    call setline(line('$'), l:v.desc)
   endif
 endfu
 

@@ -3,7 +3,7 @@ let s:cpo_save = &cpo
 set cpo&vim
 
 " Note: should not use augroup in ftdetect (see :help ftdetect)
-au BufRead,BufNewFile *.huff set filetype=huff
+au BufRead,BufNewFile *.huff setfiletype huff
 
 " restore Vi compatibility settings
 let &cpo = s:cpo_save

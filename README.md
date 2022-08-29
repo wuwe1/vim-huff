@@ -31,6 +31,6 @@ vim-huff follows the standard runtime path structure. Below are some helper line
 - [Pathogen](https://github.com/tpope/vim-pathogen)
   - `git clone https://github.com/wuwe1/vim-huff.git ~/.vim/bundle/vim-huff`
 - [vim-plug](https://github.com/junegunn/vim-plug)
-  - `Plug 'wuwe1/vim-huff', { 'do': ':GoUpdateBinaries' }`
+  - `Plug 'wuwe1/vim-huff'`
 - [Vundle](https://github.com/VundleVim/Vundle.vim)
   - `Plugin 'wuwe1/vim-huff'`

@@ -6,11 +6,17 @@ fu! evm#lookup#Lookup(k)
     let l:winnr = bufwinnr('EVM_LOOKUP')
     if l:winnr ==# -1
       split EVM_LOOKUP
-      norm! ggdG
+      normal! ggdG
       setlocal filetype=evmlookup
       setlocal buftype=nofile
-      syn match evmLookupOpcode '\v^\[\zs0x[A-Fa-f0-9]+\ze\]' nextgroup=evmLookupName
-      syn match evmLookupName '\v\s+\zs\i+\ze\(' nextgroup=evmLookupInput
+      setlocal bufhidden=delete
+      setlocal noswapfile
+      setlocal nobuflisted
+      setlocal nocursorline nocursorcolumn
+      syn match evmLookupOpcode '\v^\[\zs0x[A-Fa-f0-9]+\ze\]' 
+            \ nextgroup=evmLookupName
+      syn match evmLookupName '\v\s+\zs\i+\ze\(' 
+            \ nextgroup=evmLookupInput
       syn match evmLookupInput '\v\(\zs.*\ze\)$'
       syn match evmlookupOutput '\v^\s+-\>\zs.*\ze$'
       hi link evmLookupOpcode Number
@@ -18,18 +24,29 @@ fu! evm#lookup#Lookup(k)
       hi link evmLookupInput Identifier
       hi link evmLookupOutput Type
     else
-      exe l:winnr . 'wincmd w'
-      norm! ggdG
+      execute l:winnr . 'wincmd w'
     endif
 
     let l:winw = winwidth('.')
 
-    call append(line('$') - 1, 
+    setlocal modifiable
+    let l:content = []
+    call add(l:content,
           \ '[0x' . l:v.opcode . '] ' 
           \ . a:k 
           \ . '(' . l:v.input . ')')
-    call append(line('$') - 1, '  -> ' . l:v.output)
-    call setline(line('$'), l:v.desc)
+    call add(l:content, '  -> ' . l:v.output)
+    call add(l:content, l:v.desc)
+    normal! ggdG
+    call append(0, l:content)
+    silent $delete
+    setlocal nomodifiable
+    execute 'resize 3'
+    silent normal! gg
+    " close easily with enter
+    noremap <buffer> <silent> <CR> :<C-U>close<CR>
+    " go back
+    execute 'wincmd w'
   endif
 endfu
 

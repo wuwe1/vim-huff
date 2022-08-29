@@ -15,7 +15,7 @@
 </pre></code>
 
 ## Features
-This plugin adds Huff language support for Vim, with the following main features:
+This plugin adds [Huff](https://docs.huff.sh) language support for Vim, with the following main features:
 
 - [x] Compile with `:HuffCompile`
 - [x] Syntax highlighting

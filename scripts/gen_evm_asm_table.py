@@ -27,7 +27,7 @@ def find_first_match(pattern: str, lst: List[Any]):
     for idx, i in enumerate(lst):
         if pat.match(i):
             return idx
-    raise ValueError("no OPCODES")
+    raise ValueError(f"pattern {pattern} dose not match any line")
 
 
 def collect_opcodes(lines):

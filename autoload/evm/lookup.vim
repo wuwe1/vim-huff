@@ -1,8 +1,8 @@
-fu! evm#lookup#Lookup(k)
-  if !exists('g:evm_asm_table.' . a:k)
-    echom a:k . ' not found'
+fu! evm#lookup#Lookup(op)
+  if !exists('g:evm_asm_table.' . a:op)
+    echom a:op . ' not found'
   else
-    let l:v = get(g:evm_asm_table, a:k)
+    let l:v = get(g:evm_asm_table, a:op)
     let l:winnr = bufwinnr('EVM_LOOKUP')
     if l:winnr ==# -1
       split EVM_LOOKUP
@@ -33,7 +33,7 @@ fu! evm#lookup#Lookup(k)
     let l:content = []
     call add(l:content,
           \ '[0x' . l:v.opcode . '] ' 
-          \ . a:k 
+          \ . a:op 
           \ . '(' . l:v.input . ')')
     call add(l:content, '  -> ' . l:v.output)
     call add(l:content, l:v.desc)

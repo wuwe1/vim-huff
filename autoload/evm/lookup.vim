@@ -43,10 +43,9 @@ fu! evm#lookup#Lookup(k)
     setlocal nomodifiable
     execute 'resize 3'
     silent normal! gg
-    " close easily with enter
+    " close easily with enter and q
     noremap <buffer> <silent> <CR> :<C-U>close<CR>
-    " go back
-    execute 'wincmd w'
+    noremap <buffer> <silent> q :<C-U>close<CR>
   endif
 endfu
 
